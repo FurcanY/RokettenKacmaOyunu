@@ -4,6 +4,8 @@
 ## Bu projemde bir uzay mekiği üstten gelen roketten kaçmaya çalışıyor. :alien:  
 ![Oyun İçi Görüntü](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWU0YzAwOTVlYmYwZTAwNWMxOTYzY2FjNDU4OTk0YTgyNTIwMGU4YSZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/DzvTwK5VrbzPrEFxNN/giphy.gif)
 
+![image](https://github.com/FurcanY/RokettenKacmaOyunu/assets/114299899/aa8346ad-7072-4bce-96cf-68a28d2e3d44)
+
 
 ### Bu projeyi yapmamdaki nedenlerim:
 #### :point_right: Timer'ı projelerde etkili kullanmayı öğrenmek.
