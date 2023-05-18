@@ -1,7 +1,7 @@
 # :collision: RokettenKacmaOyunu :sparkles: :dizzy:
 
 
-## Bu oyunumda bir uzay mekiği üstten gelen roketten kaçmaya çalışıyor. :alien:  
+## Bu projemde bir uzay mekiği üstten gelen roketten kaçmaya çalışıyor. :alien:  
 ![Oyun İçi Görüntü](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWU0YzAwOTVlYmYwZTAwNWMxOTYzY2FjNDU4OTk0YTgyNTIwMGU4YSZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/DzvTwK5VrbzPrEFxNN/giphy.gif)
 
 
