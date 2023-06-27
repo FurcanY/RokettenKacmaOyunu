@@ -13,7 +13,7 @@
 #### :point_right: İki nesnenin kesişmesi olayını öğrenmek
 #### :point_right: Kodlama becerilerimi oyun yapma alanında daha üst seviyeye taşımak.
 
-## Proje içinden Örnek Kodlar 💾
+## Proje İçinden Örnek Kodlar 💾
 
 
       private void basla_btn_Click(object sender, EventArgs e)
