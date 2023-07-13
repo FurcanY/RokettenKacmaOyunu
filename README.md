@@ -4,156 +4,139 @@
 ## Bu projemde bir uzay mekiği üstten gelen roketten kaçmaya çalışıyor. :anger:
 
 
-
+![Alt Text](https://media.giphy.com/media/DzvTwK5VrbzPrEFxNN/giphy.gif)
 
 
 ### Bu projeyi yapmamdaki nedenlerim:
-#### :point_right: Unity oyun motoruna hakim olmak.
-#### :point_right: PlayerPrefs Kullanarak veri kaydetmek.
-#### :point_right: Shop sistemi ile secilen nesnenin kullanilmasini saglamak.
-#### :point_right: Unity daha optimize bir sekilde kod yazmak
+#### :point_right: Timer'i proje icerisinde etkili bir sekilde kullanmak
+#### :point_right: Daha etkili bir sekilde C# kullanak.
+#### :point_right: Nesneler arasi etkilesimi kullanmak.
+#### :point_right: Proje icerisinde nesnelerin ozelliklerini zaman icerisinde degistirmeyi ogrenmek.
 
 ## Proje İçinden Örnek Kodlar 💾
 
 ## 1
-      private void Awake()
+      public partial class Form1 : Form
     {
-        Para_Text = GameObject.Find("Para_Text").GetComponent<TMP_Text>();
-        ayar = GameObject.Find("Ayar_Gameobject").GetComponent<Ayarlar_Script>();
-        ItemButtons = new Button[Items.Length];
-        priceTexts = new TMP_Text[Items.Length];
-        ItemLockImage = new Image[Items.Length];
-        for (int i = 0; i < Items.Length; i++) 
+        public Form1()
         {
-            if (Items[i] == null)
+            InitializeComponent();
+        }
+        int sayac = 0;
+        // sayac baslad�g� zaman b�ze �slem yapmak �c�n gerkel� deg�skend�r.
+        int adimsayisi = 50;
+        //roket�n sag sol g�tme h�z�n� etk�leyen deg�sken
+
+
+        int roketHizi = 1;
+        // her t�mer say�ld�g�nda roket kac asag� �necek onu tutan deg�sken
+
+
+        int skor = 0;
+
+        int skorArtmaSayac = 1;
+        // roket�n assag� dusme h�z� artt�kca skorun artma frekans�n� artt�ran deg�skend�r.
+
+
+        bool oyunBasladi = false;
+        //oyun baslad�g� zaman uzay mek�g�n� hareket ett�rmek �c�n kullan�lan bool deg�sken
+
+
+        int enYuksekSkor = 0;
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            sayac++;
+            //oyunu zaman gect�kce daha zor yapmak �c�n sayac arrt�kca roket�n assag� dusme h�z�n� artt�ran kontrol dongusu
+            if (sayac == 1000 || sayac == 2000 || sayac == 3000 || sayac == 4000 || sayac == 5000)
             {
-                Debug.Log("Nasi null la public, ordan attim" + Items[i]);
-
-            }
-            ItemButtons[i] = Items[i].transform.GetChild(1).GetComponent<Button>();
-            ItemButtons[i].enabled = false;
-            priceTexts[i] = ItemButtons[i].transform.GetChild(0).GetComponent<TMP_Text>();
-            ItemLockImage[i] = Items[i].transform.GetChild(2).GetComponent<Image>();
-        }
-    }
-    void Start()
-    {
-        Para_Text.text = "Para: " + ayar.ParaGoster();
-        Index = ayar.IndexAl();
-        acilanIndex = ayar.AcilanIndexAl();
-        acilanIndex = ayar.AcilanIndexAl();
-        for (int i = 0; i < Items.Length; i++)
-        {
-            priceTexts[i].text = ItemPrices[i].ToString();
-        }
-        UIGuncelle();
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public void satinAl(int index)
-    {
-        if(priceTexts[index].text == yazilar[0])
-        {
-            Index = index;
-            ayar.IndexDegistir(index);
-            Debug.Log("Item secildi" + Index);
-        }
-        if (ItemPrices[index] <= ayar.ParaGoster() && (priceTexts[index].text != yazilar[0] && priceTexts[index].text != yazilar[1]))
-        {
-            Debug.Log(priceTexts[index].text);
-            Debug.Log(yazilar[0]);
-            Debug.Log(yazilar[1]);
-
-            acilanIndex = index;
-            ayar.AcilanIndexDegistir(acilanIndex);
-            ayar.ParaArttir(-ItemPrices[index]);
-            Debug.Log("Satin Alim Gerceklesti.");
-            Para_Text.text = "Para: " + ayar.ParaGoster();
-        }
-        UIGuncelle();
-    }
-
-
-
-## 2
-    void Update()
-    {
-        
-
-        if (daire.transform.childCount!=0)
-        {
-            OynaText.SetActive(false);
-            //oynamak icin space veya sol mouse basin texti oyun dairesine bir veya daha fazla cubuk(veya ok ne derseniz) child'i olursa kapattik
-        }
-
-
-        //yandiMi ok.script icinde public static bir degiskendir.
-        //bu if icerisine girer ise bolumu gecmis oluyoruz
-        if (daire.transform.childCount == score && SonrakiBolum_Button.activeSelf == false && OkScript.yandiMi == false)
-        {
-            //sonraki bolume gecer.
-            Debug.Log("Bolum Gecildi" + score);
-            ayar.ParaArttir(score);
-            //paramiz o bolumun scoreu kadar artar
-            Para_Text.text = "Para: " + ayar.ParaGoster().ToString();
-            //para degisikligini UI'da gosteririz
-
-            //en iyi score suanki scoredan az ise suanki score'i en iyi score yaptik
-            if (ayar.EnIyiScoreGetir() < score)
-            {
-                ayar.EnIyiScoreDegistir();
-            }
-            ayar.ScoreArttir();
-            //sonraki bolum suanki bolumden bir fazla score olacagindan score arttirildi
-            SonrakiBolum_Button.SetActive(true);
-        }
-        //bu if icerisinde atis islemi yapilir
-        //score-1 != daire.transform.childCount --- bu kodun icerisindeki -1 in mantigi oyun ilk baslarken start() icerisinde bir kere ates yapildigi icin koyulmustur.
-        if ((Input.GetKeyDown(KeyCode.Space)||Input.GetMouseButtonDown(0))&& score-1 != daire.transform.childCount && SonrakiBolum_Button.activeSelf==false && OkScript.yandiMi==false && atisBekleme==false)
-        {
-           
-            StartCoroutine(AtisBekleme(0.05f));
-            //eger scorun 0.6 i tamamlanmissa bu if icerisine giriyor
-            if (score / 1.5f < daire.transform.childCount)
-            {
-                
-                daireRotate = (int)Mathf.Pow(-1, daire.transform.childCount + 1);
-                //ornek  Mathf.Pow(-1, 5 + 1) -1^6=1 cikar yani donus acisi pozitif
-                //oyunda donen dairenin donus acisini her space basildiginda veya mosue0 a tiklandiginda degistiren kod parcasi
-                
-                
+                roketHizi++;
+                skorArtmaSayac += 2;
             }
 
+            if (Roket.Bottom <= 470)
+            {
+                Roket.Top += roketHizi;
+            }
+            else
+            {
+                Roket.Top = 0;
+                Roket.Left = rastgeleSpawn(12, 426);
+                skor += skorArtmaSayac;
+                skor_lbl.Text = "Skor : " + skor.ToString();
+            }
+            // her zaman �slem� oldugunda oyun b�tm�s m� kontrol ed�l�r.
+            OyunBittiMi();
+
 
         }
-        daire.transform.Rotate(daireRotate * daireRotateSpeed * Time.deltaTime * Vector3.forward);
-        //dairenin oyunun basindan bu yana donmesini saglayan kod
-        ScoreText.text = (score-daire.transform.childCount).ToString();
-        //her zmana score textini guncellyoruz (score-dairenin icindeki cubuk sayisi )(ornek--> score=10 daire icinde de 5 tane cubuk olsun. textde 5 yazar yani 5 tane daha cubuk atilmasi lazim)
-        
-    }
 
-    private void AtisYap()
-    {
-        
-        Instantiate(OkPrefab[ayar.IndexAl()], Ok_Spawn_Transform.position, Quaternion.identity);
-        //ayar.IndexAl bizim markette sectigimiz goruntunun secim indexidir.
-    }
+        private void UzayMeki�i_Click(object sender, EventArgs e)
+        {
 
-    IEnumerator AtisBekleme(float sure)
-    {
-        //atis yaparken cooldown yani atis bekleme suresini yapan IEnumerator
-        atisBekleme = true;
-        yield return new WaitForSeconds(sure);
-        AtisYap();
-        atisBekleme = false;
-    }
+        }
+        //roket�n uzaymek�g�ne carp�p carpmad�g�n� kontrol eden blok.
+        void OyunBittiMi()
+        {
+            // bounds = s�n�rlar demek.    IntersectsWith(....) = .... �le kesi�ir demek.
+            //if blo�unun a��klamas� = uzaymek�g�n�n s�n�rlar� , roketin s�n�rlar� ile kesi�irse:
+            if (UzayMeki�i.Bounds.IntersectsWith(Roket.Bounds))
+            {
+                // uzay mei�inin hareketini k�s�tlamak i�in oyunbaslad� false yap�l�r.
+                oyunBasladi = false;
+                //temiz bir g�r�nt� i�in roket �arpt��� zaman uzaymeki�i ve roket g�r�nmez yap�l�r.
+                UzayMeki�i.Visible = false;
+                Roket.Visible = false;
+
+
+
+                //oyun b�ter ve t�mer durdurulur.
+                timer1.Enabled = false;
+                //oyun b�t�m� panel� gozukur olur.
+                Kaybetme_pnl.Visible = true;
+
+                //program baslad�g�ndan bu yana en yuksek skoru hesaplamak �c�n yap�lan kontrol �slem�.
+                if (skor > enYuksekSkor)
+                {
+                    enYuksekSkor = skor;
+                }
+                suank�skor_lbl.Text = "�uanki Skorun : " + skor.ToString();
+                eny�ksekskor_lbl.Text = "En Y�ksek Skor : " + enYuksekSkor.ToString();
+
+
+                sag_btn.Enabled = false;
+                sag_btn.BackColor = Color.Gray;
+                sol_btn.Enabled = false;
+                sol_btn.BackColor = Color.Gray;
+
+
+            }
+        }
+
+        int rastgeleSpawn(int altAralik, int ustAralik)
+        {
+            int sonuc = 0;
+            Random rnd = new Random();
+            sonuc = rnd.Next(altAralik, ustAralik + 1);
+            return sonuc;
+
+        }
+
+
+        private void basla_btn_Click(object sender, EventArgs e)
+        {
+            Roket.Visible = true;
+            oyunBasladi = true;
+            timer1.Start();
+            basla_btn.Visible = false;
+            sag_btn.Enabled = true;
+            sag_btn.BackColor = Color.Green;
+            sol_btn.Enabled = true;
+            sol_btn.BackColor = Color.Green;
+            OyunAd�_lbl.Visible = false;
+
+        }
+
         
         
    ## ✴️ Belki Bakarsın Diye Bırakıyorum ✴️
